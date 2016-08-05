@@ -7,7 +7,6 @@ http://www.springframework.org/schema/mvc
 http://www.springframework.org/schema/mvc/spring-mvc-3.0.xsd">
    
 	<context:component-scan base-package="rml.controller" />
-
 	<bean id="mappingJacksonHttpMessageConverter" class="org.springframework.http.converter.json.MappingJacksonHttpMessageConverter">
 		<property name="supportedMediaTypes">
 			<list>
@@ -25,7 +24,22 @@ http://www.springframework.org/schema/mvc/spring-mvc-3.0.xsd">
 	</bean>
 
 	<bean class="org.springframework.web.servlet.view.InternalResourceViewResolver" 
-		  p:prefix="/" p:suffix=".jsp" />
+		  p:prefix="/jsp/" p:suffix=".jsp" />
+		  
+	<!-- 支持Shiro对Controller的方法级AOP安全控制 begin-->
+	<bean class="org.springframework.aop.framework.autoproxy.DefaultAdvisorAutoProxyCreator" depends-on="lifecycleBeanPostProcessor">
+		<property name="proxyTargetClass" value="true" />
+	</bean>
+	<bean class="org.springframework.web.servlet.handler.SimpleMappingExceptionResolver">
+		<property name="exceptionMappings">
+			<props>
+				<prop key="org.apache.shiro.authz.UnauthorizedException">error/403</prop>
+				<prop key="org.apache.shiro.authz.AuthorizationException">error/limit</prop>
+				<!-- <prop key="java.lang.Throwable">error/500</prop> -->
+			</props>
+			</property>
+	</bean>
+	<!-- 支持Shiro对Controller的方法级AOP安全控制 end -->
 
 	<bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
 		<property name="defaultEncoding">
