@@ -1,3 +1,14 @@
+
+使用指南
+shiro  1.2.3 版本
+
+-------1--------
+----------通过 cmd 命令，进入文件夹 执行下面语句------
 java -jar mybatis-generator-core-1.3.2.jar -configfile generator.xml -overwrite
 
-shiro  1.2.3 版本
+-------2--------
+----------通过maven执行----配置文件名 generatorConfig.xml --放在 src/main/resources 下---
+---参考   http://my.oschina.net/u/1763011/blog/324106
+
+项目 右键--》run as --》 maven bulid --》弹出对话框 --》在goals中输入mybatis-generator:generate 
+	或者 点击select --》选择你的mybatis插件 --》apply --》run

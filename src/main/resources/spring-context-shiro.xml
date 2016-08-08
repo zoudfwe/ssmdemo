@@ -39,25 +39,30 @@
         <!-- 下面value值的第一个'/'代表的路径是相对于HttpServletRequest.getContextPath()的值来的 -->  
         <!-- anon：它对应的过滤器里面是空的,什么都没做,这里.do和.jsp后面的*表示参数,比方说login.jsp?main这种 -->  
         <!-- authc：该过滤器下的页面必须验证后才能访问,它是Shiro内置的一个拦截器org.apache.shiro.web.filter.authc.FormAuthenticationFilter -->  
-        <!-- <property name="filters">
+        <property name="filters">
             <map>
-                <entry key="cas" value-ref="casFilter"/>
-                <entry key="authc" value-ref="formAuthenticationFilter"/>
+                <!-- <entry key="authc" value-ref="formAuthenticationFilter"/> -->
+                <!-- <entry key="cas" value-ref="casFilter"/>
                 <entry key="roles" value-ref="roleOrFilter"/>
-                <entry key="logout" value-ref="logoutFilter"/>
+                <entry key="logout" value-ref="logoutFilter"/> -->
             </map>
-        </property> -->
+        </property>
         <property name="filterChainDefinitions">  
             <value>  
                 /login/login = authc 
                 /logout = logout
                 /login/success = user
                 /admin/** = authc
+                /muserController/** = authc
                 <!-- /admin/** = anthc,roles[admin]
                 /user/** = roles[user] -->
             </value>  
         </property>  
     </bean>  
+  
+  	<!-- <bean id="formAuthenticationFilter" class="org.apache.shiro.web.filter.authc.FormAuthenticationFilter">  
+		<property name="failureUrl" value="login/login.do"/>
+	</bean> -->
   
     <!-- 保证实现了Shiro内部lifecycle函数的bean执行 -->  
     <bean id="lifecycleBeanPostProcessor" class="org.apache.shiro.spring.LifecycleBeanPostProcessor"/>  

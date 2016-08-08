@@ -1,6 +1,7 @@
 package rml.dao;
 
 import java.util.List;
+import java.util.Map;
 
 import rml.model.MUser;
 
@@ -18,4 +19,10 @@ public interface MUserMapper {
     int updateByPrimaryKey(MUser record);
     
     List<MUser> getAll();
+
+	List<MUser> selectMUserByWhere(String name, int age, String address);
+
+	List<MUser> selectMUserByWhere(MUser muser);
+
+	List<MUser> selectMUserByWhereMap(Map<String, String> map);
 }

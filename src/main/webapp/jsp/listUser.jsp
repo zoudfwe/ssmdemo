@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib prefix="shiro" uri="http://shiro.apache.org/tags" %>
 <%
 String path = request.getContextPath();
 String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
@@ -13,7 +14,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 </head>
 <body>
   	<h3>UserList</h3>
-  	<a href="<%=path %>/addUser.jsp">Add User</a><br/>
+  	<a href="<%=path %>/muserController/addUserView.do">Add User</a><br/>
 	<table border="1" width="70%">
    		<tr>
    			<td>Id</td>
@@ -29,7 +30,11 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
    			<td>${user.name }</td>
    			<td>${user.age }</td>
    			<td>${user.address }</td>
-   			<td><a href="<%=path %>/muserController/deleteUser.do?id=${user.id }">Delete</a></td>
+   			<td>
+   			<shiro:hasRole name="superadmin">
+   			<a href="<%=path %>/muserController/deleteUser.do?id=${user.id }">Delete</a>
+   			</shiro:hasRole>
+   			</td>
    			<td><a href="<%=path %>/muserController/updateUserUI.do?id=${user.id }">Update</a></td>
    		</tr>
    		</c:forEach>

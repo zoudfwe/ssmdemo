@@ -1,6 +1,7 @@
 package rml.service;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -50,6 +51,21 @@ public class MUserServiceImpl implements MUserServiceI{
 	public MUser selectByPrimaryKey(String id) {
 		
 		return muserMapper.selectByPrimaryKey(id);
+	}
+
+	@Override
+	public List<MUser> selectMUserByWhere(String name, int age, String address) {
+		MUser muser = new MUser();
+		muser.setName(name);
+		muser.setAddress(address);
+		muser.setAge(age);
+//		return muserMapper.selectMUserByWhere(name, age, address);
+		return muserMapper.selectMUserByWhere(muser);
+	}
+
+	@Override
+	public List<MUser> selectMUserByWhereMap(Map<String,String> map) {
+		return muserMapper.selectMUserByWhereMap(map);
 	}
 
 }

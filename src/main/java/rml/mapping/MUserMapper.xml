@@ -83,4 +83,28 @@
   <select id="getAll" resultMap="BaseResultMap">
 	select ID, NAME, AGE, ADDRESS from muser
   </select>
+  
+  <select id="selectMUserByWhere" parameterType="rml.model.MUser" resultMap="BaseResultMap">
+  	select 
+    <include refid="Base_Column_List" />
+    from MUSER
+    <where>
+    	<if test="name != null and name != ''"> name like Concat('%',#{name},'%') </if>
+    	<if test="age != null and age != ''"> and age = #{age}</if>
+    	<if test="address != null and address != ''"> and address like Concat('%',#{address},'%') </if>
+    </where>
+ 
+  </select>
+  
+  <select id="selectMUserByWhereMap" parameterType="java.util.Map" resultMap="BaseResultMap">
+  	select 
+    <include refid="Base_Column_List" />
+    from MUSER
+    <where>
+    	<if test="name != null and name != ''"> name like Concat('%',#{name},'%') </if>
+    	<if test="age != null and age != ''"> and age = #{age}</if>
+    	<if test="address != null and address != ''"> and address like Concat('%',#{address},'%') </if>
+    </where>
+ 
+  </select>
 </mapper>

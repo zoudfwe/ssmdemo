@@ -35,9 +35,14 @@ public class MUserController {
 		return "listUser";
 	}
 	
+	@RequestMapping(value="/addUserView")
+	public String addUserView(MUser muser) {
+			
+		return "addUser";
+	}
 	@RequestMapping(value="/addUser")
 	public String addUser(MUser muser) {
-			
+		
 		String id = UUID.randomUUID().toString();
 		muser.setId(id);
 		muserService.insert(muser);

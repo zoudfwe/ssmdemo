@@ -38,7 +38,8 @@ public class AdminLoginController {
 	public String loginSuccess(HttpServletRequest request){
 		String resultPageURL = "admin/login";
 		String username = request.getParameter("username");
-				
+		String password = request.getParameter("password");
+		
 		UsernamePasswordToken token = new UsernamePasswordToken(
 				request.getParameter("username"), request.getParameter("password"));
 		/*//发出登陆请求  
@@ -51,6 +52,12 @@ public class AdminLoginController {
             //每个Realm都能在必要时对提交的AuthenticationTokens作出反应  
             //所以这一步在调用login(token)方法时,它会走到MyRealm.doGetAuthenticationInfo()方法中,具体验证方式详见此方法  
             System.out.println("对用户[" + username + "]进行登录验证..验证开始");  
+            if(username.equals("")||username==null){
+    			throw new UnknownAccountException("UnknownAccountException");
+    		}
+            if(password.equals("")||password==null){
+    			throw new IncorrectCredentialsException("IncorrectCredentialsException");
+    		}
             currentUser.login(token);  
             System.out.println("对用户[" + username + "]进行登录验证..验证通过");  
             resultPageURL = "redirect:/login/index.do";  
